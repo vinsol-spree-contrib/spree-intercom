@@ -1,8 +1,7 @@
 class Spree::Intercom::UserUpdationJob < ApplicationJob
 
-  queue_as :default
-
   def perform(id)
-    Spree::Intercom::UserUpdationService.new(id).call
+    Spree::Intercom::UpdateUserService.new(id).update
   end
+
 end
