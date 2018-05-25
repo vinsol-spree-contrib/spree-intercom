@@ -22,6 +22,7 @@ RSpec.describe Spree::Address, type: :model do
 
       context 'when bill_address is present' do
         let!(:user) { create(:user, bill_address_id: address.id) }
+        before { address.send :update_user_on_intercom }
 
         it 'is expected not to call persist_order_address' do
           expect(user).not_to receive(:persist_order_address)
