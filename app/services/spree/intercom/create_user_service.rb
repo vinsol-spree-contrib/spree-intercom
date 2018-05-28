@@ -17,7 +17,7 @@ class Spree::Intercom::CreateUserService < Spree::Intercom::BaseService
     send_request
 
     if @response.success?
-      Spree::Intercom::Events::CreateUserService.new(@user.id).register
+      Spree::Intercom::Events::User::CreateService.new(@user.id).register
     end
   end
 

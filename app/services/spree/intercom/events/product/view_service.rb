@@ -1,8 +1,8 @@
-class Spree::Intercom::Events::ProductViewService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::Product::ViewService < Spree::Intercom::BaseService
 
-  def initialize(id, product_id)
-    @user = Spree::User.find_by(id: id)
-    @product = Spree::Product.find_by(id: product_id)
+  def initialize(options)
+    @user = Spree::User.find_by(id: options[:user_id])
+    @product = Spree::Product::find_by(id: options[:product_id])
     super()
   end
 

@@ -1,4 +1,4 @@
-class Spree::Intercom::Events::CreateUserService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::User::CreateService < Spree::Intercom::BaseService
 
   def initialize(id)
     @user = Spree::User.find_by(id: id)
