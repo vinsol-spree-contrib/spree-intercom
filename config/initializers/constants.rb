@@ -15,6 +15,12 @@ MAPPER = {
   },
 
   Order: {
-    update: 'change'
+    update: 'StateChange',
+    placed: 'Placed'
+  },
+
+  Promotion: {
+    create: 'Applied',
+    destroy: 'Removed'
   }
 }

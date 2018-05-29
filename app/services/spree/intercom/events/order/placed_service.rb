@@ -1,8 +1,8 @@
-class Spree::Intercom::Events::LineItem::RemoveService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::Order::PlacedService < Spree::Intercom::BaseService
 
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
-    @options = options
+    @order = Spree::Order.find_by(id: options[:order_id])
     super()
   end
 
@@ -16,12 +16,12 @@ class Spree::Intercom::Events::LineItem::RemoveService < Spree::Intercom::BaseSe
 
   def event_data
     {
-      event_name: 'remove-product',
-      created_at: Time.current.to_i,
+      event_name: 'order-placed',
+      created_at: @order.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @options[:order_number],
-        product: @options[:name],
+        order_number: @order.number,
+        amount: @order.amount
       }
     }
   end
