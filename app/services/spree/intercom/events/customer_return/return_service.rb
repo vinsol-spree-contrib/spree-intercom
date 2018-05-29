@@ -17,8 +17,8 @@ class Spree::Intercom::Events::CustomerReturn::ReturnService < Spree::Intercom::
 
   def event_data
     {
-      event_name: 'order-return',
-      created_at: @return.updated_at,
+      event_name: 'returned-order',
+      created_at: @return.created_at,
       user_id: @user.intercom_user_id,
       metadata: {
         order_number: @order.number,

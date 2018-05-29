@@ -10,9 +10,10 @@ Spree::TaxonsController.class_eval do
 
     def data
       {
-        user_id: spree_current_user.id,
+        filter: @searcher.search.to_s,
         taxon: params[:id],
-        filter: @searcher.search.to_s
+        time: Time.current.to_i,
+        user_id: spree_current_user.id
       }
     end
 

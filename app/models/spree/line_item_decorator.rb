@@ -24,16 +24,19 @@ Spree::LineItem.class_eval do
 
     def data
       {
-        user_id: order.user_id,
-        line_item_id: id
+        line_item_id: id,
+        time: Time.current.to_i,
+        user_id: order.user_id
       }
     end
 
     def removed_item_data
       {
-        user_id: order.user_id,
         name: name,
-        order_number: order.number
+        order_number: order.number,
+        sku: variant.sku,
+        time: Time.current.to_i,
+        user_id: order.user_id
       }
     end
 

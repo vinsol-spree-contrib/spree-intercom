@@ -15,15 +15,17 @@ Spree::ProductsController.class_eval do
 
     def data
       {
-        user_id: spree_current_user.id,
-        product_id: @product.id
+        product_id: @product.id,
+        time: Time.current.to_i,
+        user_id: spree_current_user.id
       }
     end
 
     def search_data
       {
-        user_id: spree_current_user.id,
-        search_keyword: params[:keywords]
+        search_keyword: params[:keywords],
+        time: Time.current.to_i,
+        user_id: spree_current_user.id
       }
     end
 

@@ -19,9 +19,10 @@ Spree::OrderPromotion.class_eval do
 
     def data
       {
-        user_id: order.user_id,
         order_id: order_id,
-        promotion_id: promotion_id
+        promotion_id: promotion_id,
+        time: Time.current.to_i,
+        user_id: order.user_id
       }
     end
 

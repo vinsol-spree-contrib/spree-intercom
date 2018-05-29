@@ -3,7 +3,6 @@ class Spree::Intercom::Events::Order::StateChangeService < Spree::Intercom::Base
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
     @order = Spree::Order.find_by(id: options[:order_id])
-    @previous_state = options[:previous_state]
     super()
   end
 
@@ -17,13 +16,12 @@ class Spree::Intercom::Events::Order::StateChangeService < Spree::Intercom::Base
 
   def event_data
     {
-      event_name: 'order-state-change',
+      event_name: 'changed-order-state',
       created_at: @order.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {
         order_number: @order.number,
-        from: @previous_state ,
-        to: @order.state
+        state: @order.state
       }
     }
   end

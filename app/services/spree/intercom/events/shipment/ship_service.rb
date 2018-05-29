@@ -17,7 +17,7 @@ class Spree::Intercom::Events::Shipment::ShipService < Spree::Intercom::BaseServ
 
   def event_data
     {
-      event_name: 'order-ship',
+      event_name: 'shipped-order',
       created_at: @shipment.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {

@@ -16,7 +16,7 @@ class Spree::Intercom::Events::Order::PlaceService < Spree::Intercom::BaseServic
 
   def event_data
     {
-      event_name: 'order-place',
+      event_name: 'placed-order',
       created_at: @order.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {

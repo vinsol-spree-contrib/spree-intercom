@@ -3,6 +3,7 @@ class Spree::Intercom::Events::Product::ViewService < Spree::Intercom::BaseServi
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
     @product = Spree::Product::find_by(id: options[:product_id])
+    @options = options
     super()
   end
 
@@ -16,11 +17,11 @@ class Spree::Intercom::Events::Product::ViewService < Spree::Intercom::BaseServi
 
   def event_data
     {
-      event_name: 'view-product',
-      created_at: Time.current.to_i,
+      event_name: 'viewed-product',
+      created_at: @options[:time],
       user_id: @user.intercom_user_id,
       metadata: {
-        product: @product.name,
+        product: @product.name
       }
     }
   end

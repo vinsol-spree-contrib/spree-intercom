@@ -2,7 +2,8 @@ class Spree::Intercom::Events::Product::SearchService < Spree::Intercom::BaseSer
 
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
-    @search_keyword = options[:search_keyword]
+    # @search_keyword = options[:search_keyword]
+    @options = options
     super()
   end
 
@@ -16,11 +17,11 @@ class Spree::Intercom::Events::Product::SearchService < Spree::Intercom::BaseSer
 
   def event_data
     {
-      event_name: 'search-product',
-      created_at: Time.current.to_i,
+      event_name: 'searched-product',
+      created_at: @options[:time],
       user_id: @user.intercom_user_id,
       metadata: {
-        keyword: @search_keyword,
+        keyword: @options[:search_keyword],
       }
     }
   end

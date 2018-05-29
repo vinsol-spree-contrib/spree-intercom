@@ -4,6 +4,7 @@ class Spree::Intercom::Events::OrderPromotion::ApplyService < Spree::Intercom::B
     @user = Spree::User.find_by(id: options[:user_id])
     @order = Spree::Order.find_by(id: options[:order_id])
     @promotion = Spree::Promotion.find_by(id: options[:promotion_id])
+    @options = options
     super()
   end
 
@@ -17,8 +18,8 @@ class Spree::Intercom::Events::OrderPromotion::ApplyService < Spree::Intercom::B
 
   def event_data
     {
-      event_name: 'promotion-apply',
-      created_at: Time.current.to_i,
+      event_name: 'applied-promotion',
+      created_at: @options[:time],
       user_id: @user.intercom_user_id,
       metadata: {
         order_number: @order.number,
