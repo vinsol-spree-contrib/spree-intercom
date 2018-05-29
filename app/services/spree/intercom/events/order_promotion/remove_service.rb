@@ -1,4 +1,4 @@
-class Spree::Intercom::Events::OrderPromotion::AppliedService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::OrderPromotion::RemoveService < Spree::Intercom::BaseService
 
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
@@ -17,7 +17,7 @@ class Spree::Intercom::Events::OrderPromotion::AppliedService < Spree::Intercom:
 
   def event_data
     {
-      event_name: 'promotion-applied',
+      event_name: 'promotion-remove',
       created_at: Time.current.to_i,
       user_id: @user.intercom_user_id,
       metadata: {

@@ -16,11 +16,19 @@ MAPPER = {
 
   Order: {
     update: 'StateChange',
-    placed: 'Placed'
+    placed: 'Place'
   },
 
   OrderPromotion: {
-    create: 'Applied',
-    destroy: 'Removed'
+    create: 'Apply',
+    destroy: 'Remove'
+  },
+
+  Shipment: {
+    update: 'Ship'
+  },
+
+  CustomerReturn: {
+    create: 'Return'
   }
 }

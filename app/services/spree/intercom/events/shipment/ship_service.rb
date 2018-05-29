@@ -1,9 +1,9 @@
-class Spree::Intercom::Events::OrderPromotion::RemovedService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::Shipment::ShipService < Spree::Intercom::BaseService
 
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
     @order = Spree::Order.find_by(id: options[:order_id])
-    @promotion = Spree::Promotion.find_by(id: options[:promotion_id])
+    @shipment = Spree::Shipment.find_by(id: options[:shipment_id])
     super()
   end
 
@@ -17,12 +17,12 @@ class Spree::Intercom::Events::OrderPromotion::RemovedService < Spree::Intercom:
 
   def event_data
     {
-      event_name: 'promotion-removed',
-      created_at: Time.current.to_i,
+      event_name: 'order-ship',
+      created_at: @shipment.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {
         order_number: @order.number,
-        code: @promotion.code
+        shipment_number: @shipment.number
       }
     }
   end

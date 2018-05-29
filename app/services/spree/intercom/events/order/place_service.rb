@@ -1,4 +1,4 @@
-class Spree::Intercom::Events::Order::PlacedService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::Order::PlaceService < Spree::Intercom::BaseService
 
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
@@ -16,7 +16,7 @@ class Spree::Intercom::Events::Order::PlacedService < Spree::Intercom::BaseServi
 
   def event_data
     {
-      event_name: 'order-placed',
+      event_name: 'order-place',
       created_at: @order.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {

@@ -15,7 +15,7 @@ class Spree::Intercom::Events::User::CreateService < Spree::Intercom::BaseServic
 
   def event_data
     {
-      event_name: 'created',
+      event_name: 'user-created',
       created_at: @user.created_at.to_i,
       user_id: @user.intercom_user_id
     }
