@@ -3,7 +3,6 @@ class Spree::Intercom::Events::LineItem::CreateService < Spree::Intercom::BaseSe
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
     @line_item = Spree::LineItem.find_by(id: options[:line_item_id])
-    @options = options
     super()
   end
 
@@ -18,7 +17,7 @@ class Spree::Intercom::Events::LineItem::CreateService < Spree::Intercom::BaseSe
   def event_data
     {
       event_name: 'added-product',
-      created_at: @options[:time],
+      created_at: @line_item.created_at,
       user_id: @user.intercom_user_id,
       metadata: {
         order_number: @line_item.order.number,

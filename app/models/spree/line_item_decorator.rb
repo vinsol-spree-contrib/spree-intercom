@@ -25,7 +25,6 @@ Spree::LineItem.class_eval do
     def data
       {
         line_item_id: id,
-        time: Time.current.to_i,
         user_id: order.user_id
       }
     end
