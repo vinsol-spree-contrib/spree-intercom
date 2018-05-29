@@ -19,7 +19,7 @@ MAPPER = {
     placed: 'Placed'
   },
 
-  Promotion: {
+  OrderPromotion: {
     create: 'Applied',
     destroy: 'Removed'
   }

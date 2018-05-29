@@ -1,4 +1,4 @@
-class Spree::Intercom::Events::Promotion::RemovedService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::OrderPromotion::RemovedService < Spree::Intercom::BaseService
 
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
@@ -22,7 +22,7 @@ class Spree::Intercom::Events::Promotion::RemovedService < Spree::Intercom::Base
       user_id: @user.intercom_user_id,
       metadata: {
         order_number: @order.number,
-        promotion: @promotion.code
+        code: @promotion.code
       }
     }
   end

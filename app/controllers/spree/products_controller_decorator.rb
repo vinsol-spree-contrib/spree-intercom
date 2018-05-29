@@ -1,7 +1,7 @@
 Spree::ProductsController.class_eval do
 
-  after_action :create_product_view_event_on_intercom, only: :show, if: [:spree_current_user, :searched?]
-  after_action :create_product_search_event_on_intercom, only: :index, if: :spree_current_user
+  after_action :create_product_view_event_on_intercom, only: :show, if: :spree_current_user
+  after_action :create_product_search_event_on_intercom, only: :index, if: [:spree_current_user, :searched?]
 
   private
 
