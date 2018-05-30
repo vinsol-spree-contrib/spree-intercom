@@ -1,8 +1,8 @@
 Spree::Order.class_eval do
 
-  PRE_COMPLETE_STATES = [:address, :delivery, :payment, :confirm]
+  TRACKED_STATES = [:cart, :address, :delivery, :payment, :confirm]
 
-  state_machine.after_transition to: PRE_COMPLETE_STATES, do: :create_order_state_change_event_on_intercom, if: :user_present?
+  state_machine.after_transition to: TRACKED_STATES, do: :create_order_state_change_event_on_intercom, if: :user_present?
   state_machine.after_transition to: :complete, do: :create_order_placed_event_on_intercom, if: :user_present?
 
   private

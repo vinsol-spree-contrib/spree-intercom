@@ -1,8 +1,8 @@
 Spree::LineItem.class_eval do
 
-  after_commit :create_line_item_added_event_on_intercom, on: :create, if: :user_present?
-  after_commit :create_line_item_updated_event_on_intercom, on: :update, if: [:user_present?, :quantity_updated_to_non_zero_quantity?]
-  after_commit :create_line_item_removed_event_on_intercom, on: :destroy, if: :user_present?
+  include Spree::ModelEventTracker
+
+  after_commit :create_event_on_intercom, on: [:create, :update, :destroy], if: :user_present?
 
   private
 
@@ -10,26 +10,24 @@ Spree::LineItem.class_eval do
       order.user_id.present?
     end
 
-    def create_line_item_added_event_on_intercom
-      Spree::Intercom::TrackEventsJob.perform_later("line_items*create", data)
-    end
-
-    def create_line_item_updated_event_on_intercom
-      Spree::Intercom::TrackEventsJob.perform_later("line_items*update", data)
-    end
-
-    def create_line_item_removed_event_on_intercom
-      Spree::Intercom::TrackEventsJob.perform_later("line_items*destroy", removed_item_data)
-    end
-
-    def data
+    def set_data
       {
         line_item_id: id,
+        order_number: order.number,
+        sku: variant.sku,
         user_id: order.user_id
       }
     end
 
-    def removed_item_data
+    def create_data
+      set_data
+    end
+
+    def update_data
+      set_data
+    end
+
+    def destroy_data
       {
         name: name,
         order_number: order.number,
@@ -39,7 +37,7 @@ Spree::LineItem.class_eval do
       }
     end
 
-    def quantity_updated_to_non_zero_quantity?
+    def quantity_updated_to_non_zero_value?
       saved_changes.include?(:quantity) && !saved_change_to_quantity.first.nil? && quantity != 0
     end
 

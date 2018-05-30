@@ -1,19 +1,12 @@
 Spree::ProductsController.class_eval do
 
-  after_action :create_product_view_event_on_intercom, only: :show, if: :spree_current_user
-  after_action :create_product_search_event_on_intercom, only: :index, if: [:spree_current_user, :searched?]
+  include Spree::ControllerEventTracker
+
+  after_action :create_event_on_intercom, only: [:show, :index]
 
   private
 
-    def create_product_view_event_on_intercom
-      Spree::Intercom::TrackEventsJob.perform_later("#{controller_name}*#{action_name}", data)
-    end
-
-    def create_product_search_event_on_intercom
-      Spree::Intercom::TrackEventsJob.perform_later("#{controller_name}*#{action_name}", search_data)
-    end
-
-    def data
+    def show_data
       {
         product_id: @product.id,
         time: Time.current.to_i,
@@ -21,7 +14,7 @@ Spree::ProductsController.class_eval do
       }
     end
 
-    def search_data
+    def index_data
       {
         search_keyword: params[:keywords],
         time: Time.current.to_i,
