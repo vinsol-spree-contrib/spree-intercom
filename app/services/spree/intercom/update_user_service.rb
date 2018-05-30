@@ -7,7 +7,7 @@ class Spree::Intercom::UpdateUserService < Spree::Intercom::BaseService
 
   def perform
     user = @intercom.users.find(user_id: @user.intercom_user_id)
-    user_data = ActiveModelSerializers::SerializableResource.new(@user).serializable_hash
+    user_data = Spree::Intercom::UserSerializer.new(@user).serializable_hash
 
     user_data.each do |key, value|
       user.public_send "#{key}=", value
