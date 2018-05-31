@@ -1,13 +1,27 @@
-SpreeIntercom
+Spree Intercom
 =============
 
-Introduction goes here.
+## Demo
+
+Try Spree Intercom for Spree master with direct deployment on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-intercom-master)
+
+Try Spree Intercom for Spree 3-4 with direct deployment on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-intercom-3-4)
+
+## Introduction
+
+It is a spree wrapper for Intercom, by which you can directly install Intercom on your store, create and update customers on Intercom, chat with customers, and track his movements on your store, without any hassle.
+
+We currently support Rails 5 and Spree > 3.1
 
 ## Installation
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_intercom', github: 'vinsol-spree-contrib/spree_intercom'
+  gem 'spree_intercom', github: 'vinsol-spree-contrib/spree-intercom'
   ```
 
 2. Install the gem using Bundler:
@@ -19,10 +33,68 @@ Introduction goes here.
   ```ruby
   bundle exec rails g spree_intercom:install
   ```
+4. Run the rake task to add intercom id to your pre-existing users.
+  ```ruby
+  bundle exec rake intercom:process_users
+  ```
 
-4. Restart your server
+5. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
+
+## Usage
+
+1. Go to Admin Panel -> Configurations -> Intercom, and enter your Intercom application's id and access token.
+
+   ![image](https://ibb.co/ikpRqy)
+
+   ![image](https://ibb.co/gR7CVy)
+
+   To get your application id, you can have a look [here](https://docs.intercom.com/faqs-and-troubleshooting/getting-set-up/where-can-i-find-my-app-id)
+
+   You can read more about access tokens [here](https://developers.intercom.com/docs/personal-access-tokens)
+
+2. If you have entered correct application id, and access token; AND have subscribed to Intercom's chat product [ message / inbox ], you should be able to see Intercom chat widget in your store.
+
+   Please visit your Intercom admin panel to customise it as per your wish.
+
+   ![image](https://ibb.co/fv9sVy)
+
+3. As soon as a user creates an account, or user updates his information [ name, phone ] is instantaneously uploaded on Intercom.
+
+4. You can engage with customers through the Intercom message widget.
+
+   As soon as the customer logs out of his account, his previous conversation is swiped off, to maintain customer's privacy.
+
+   When user is logged in -
+
+   ![image](https://ibb.co/bRCqHd)
+
+   After Logout -
+
+   ![image](https://ibb.co/imBQHd)
+
+5. Events - You can track your customer's movement on your store
+
+   ![image](https://ibb.co/mRVMOJ)
+
+   Currently, we are tracking the following events -
+    * Customer created
+    * Customer updated
+    * Customer Login
+    * Customer Logout
+    * Add item in cart
+    * Remove item from cart
+    * Update cart
+    * Product view
+    * Product search
+    * Filter applied
+    * Checkout stages - address, delivery, payment, confirm.
+    * Order placed
+    * Order shipped
+    * Order returned
+    * Promotion applied
+    * Promotion removed
 
 ## Testing
 
