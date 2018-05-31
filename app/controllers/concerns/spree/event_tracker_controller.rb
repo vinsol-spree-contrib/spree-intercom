@@ -1,5 +1,5 @@
 module Spree
-  module ControllerEventTracker
+  module EventTrackerController
     extend ActiveSupport::Concern
 
     private

@@ -1,6 +1,6 @@
 Spree::Shipment.class_eval do
 
-  include Spree::ModelEventTracker
+  include Spree::EventTracker
 
   state_machine.after_transition to: :shipped, do: :create_event_on_intercom, if: :user_present?
 

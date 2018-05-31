@@ -1,6 +1,6 @@
 Spree::ProductsController.class_eval do
 
-  include Spree::ControllerEventTracker
+  include Spree::EventTrackerController
 
   after_action :create_event_on_intercom, only: [:show, :index]
 

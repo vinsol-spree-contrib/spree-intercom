@@ -1,6 +1,6 @@
 Spree::LineItem.class_eval do
 
-  include Spree::ModelEventTracker
+  include Spree::EventTracker
 
   after_commit :create_event_on_intercom, on: [:create, :update, :destroy], if: :user_present?
 

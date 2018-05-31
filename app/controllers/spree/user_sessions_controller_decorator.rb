@@ -1,6 +1,6 @@
 Spree::UserSessionsController.class_eval do
 
-  include Spree::ControllerEventTracker
+  include Spree::EventTrackerController
 
   around_action :set_data, only: :destroy  # done because spree_current_user wont be available after log out
   after_action :create_event_on_intercom, only: [:create, :destroy]

@@ -1,6 +1,6 @@
 Spree::Order.class_eval do
 
-  include Spree::ModelEventTracker
+  include Spree::EventTracker
 
   TRACKED_STATES = [:cart, :address, :delivery, :payment, :confirm, :complete]
 
