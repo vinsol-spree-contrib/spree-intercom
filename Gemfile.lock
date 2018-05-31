@@ -423,7 +423,6 @@ DEPENDENCIES
   database_cleaner
   factory_bot
   ffaker
-  intercom (~> 3.5.25)
   mysql2
   pg (~> 0.18)
   rails-controller-testing
