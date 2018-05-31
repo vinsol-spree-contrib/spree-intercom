@@ -3,8 +3,6 @@ class Spree::Intercom::Events::Taxon::FilterService < Spree::Intercom::BaseServi
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
     @options = options
-    # @taxon = options[:taxon]
-    # @filter = options[:filter]
     super()
   end
 

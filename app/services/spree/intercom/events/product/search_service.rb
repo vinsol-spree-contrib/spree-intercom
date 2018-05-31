@@ -2,7 +2,6 @@ class Spree::Intercom::Events::Product::SearchService < Spree::Intercom::BaseSer
 
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
-    # @search_keyword = options[:search_keyword]
     @options = options
     super()
   end
