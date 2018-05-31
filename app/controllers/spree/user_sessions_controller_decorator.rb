@@ -2,7 +2,7 @@ Spree::UserSessionsController.class_eval do
 
   include Spree::ControllerEventTracker
 
-  before_action :destroy_data, only: :destroy  # done becuase spree_current_user wont be available after log out
+  around_action :set_data, only: :destroy  # done because spree_current_user wont be available after log out
   after_action :create_event_on_intercom, only: [:create, :destroy]
 
   private
@@ -16,6 +16,11 @@ Spree::UserSessionsController.class_eval do
 
     def destroy_data
       @data ||= create_data
+    end
+
+    def set_data
+      destroy_data
+      yield
     end
 
 end

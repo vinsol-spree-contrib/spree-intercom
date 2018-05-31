@@ -1,4 +1,4 @@
-MAPPER = {
+SERVICE_MAPPER = {
   Product: {
     show: 'Spree::Intercom::Events::Product::ViewService',
     index: 'Spree::Intercom::Events::Product::SearchService'
@@ -20,8 +20,8 @@ MAPPER = {
   },
 
   Order: {
-    update: 'StateChange',
-    placed: 'Place'
+    update: 'Spree::Intercom::Events::Order::StateChangeService',
+    placed: 'Spree::Intercom::Events::Order::PlaceService'
   },
 
   OrderPromotion: {

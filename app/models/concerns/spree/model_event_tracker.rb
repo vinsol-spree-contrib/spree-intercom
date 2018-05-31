@@ -25,14 +25,16 @@ module Spree
       end
 
       def action_name
-        return :create if resource_created?
-        return :update if resource_updated?
-        return :destroy if resource_destroyed?
+        if is_a?(Order)
+          complete? ? :placed : :update
+        else
+          return :create if resource_created?
+          return :update if resource_updated?
+          return :destroy if resource_destroyed?
+        end
       end
 
-      # used try becuase OrderPromotion does not have timestamps
-
-      # when resource is created, id is changed from nil to a value
+      # used try because OrderPromotion does not have timestamps
       def resource_created?
         persisted? && try(:created_at).to_i == try(:updated_at).to_i
       end

@@ -22,7 +22,7 @@ Spree::ProductsController.class_eval do
       }
     end
 
-    def searched?
+    def product_searched_by_user?
       params[:keywords].present?
     end
 
