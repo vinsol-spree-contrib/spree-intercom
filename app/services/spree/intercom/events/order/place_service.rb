@@ -20,7 +20,7 @@ class Spree::Intercom::Events::Order::PlaceService < Spree::Intercom::BaseServic
       created_at: @order.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @order.number
+        order_number: @order.number,
         price: {
           amount: @order.amount,
           currency: @order.currency
