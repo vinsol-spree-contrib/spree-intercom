@@ -1,0 +1,9 @@
+<% if Spree::Config.intercom_application_id.present? %>
+  <%= hidden_field_tag :intercom_application_id, {}, { data: { hook: 'intercom_application_id', value: Spree::Config.intercom_application_id } } %>
+
+  <% if spree_current_user.present? %>
+    <%= hidden_field_tag :current_user_email, {}, { data: { hook: 'current_user_email', value: spree_current_user.email } } %>
+    <%= hidden_field_tag :current_user_id, {}, { data: { hook: 'current_user_id', value: spree_current_user.intercom_user_id } } %>
+  <% end %>
+
+<% end %>
