@@ -2,7 +2,7 @@ Spree::ProductsController.class_eval do
 
   include Spree::EventTrackerController
 
-  after_action :create_event_on_intercom, only: [:show, :index]
+  after_action :create_event_on_intercom, only: [:show, :index], if: :product_search_conditions_satisfied?
 
   private
 
@@ -22,7 +22,8 @@ Spree::ProductsController.class_eval do
       }
     end
 
-    def product_searched_by_user?
+    def product_search_conditions_satisfied?
+      return true unless action_name == 'index'
       params[:keywords].present?
     end
 

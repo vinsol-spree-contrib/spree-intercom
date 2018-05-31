@@ -1,39 +1,39 @@
-SERVICE_MAPPER = {
-  Product: {
-    show: 'Spree::Intercom::Events::Product::ViewService',
-    index: 'Spree::Intercom::Events::Product::SearchService'
+INTERCOM_SERVICE_MAPPER = {
+  product: {
+    show: Spree::Intercom::Events::Product::ViewService,
+    index: Spree::Intercom::Events::Product::SearchService
   },
 
-  LineItem: {
-    create: 'Spree::Intercom::Events::LineItem::AddService',
-    update: 'Spree::Intercom::Events::LineItem::UpdateService',
-    destroy: 'Spree::Intercom::Events::LineItem::RemoveService'
+  line_item: {
+    create: Spree::Intercom::Events::LineItem::AddService,
+    update: Spree::Intercom::Events::LineItem::UpdateService,
+    destroy: Spree::Intercom::Events::LineItem::RemoveService
   },
 
-  UserSession: {
-    create: 'Spree::Intercom::Events::UserSession::LoginService',
-    destroy: 'Spree::Intercom::Events::UserSession::LogoutService'
+  user_session: {
+    create: Spree::Intercom::Events::UserSession::LoginService,
+    destroy: Spree::Intercom::Events::UserSession::LogoutService
   },
 
-  Taxon: {
-    show: 'Spree::Intercom::Events::Taxon::FilterService'
+  taxon: {
+    show: Spree::Intercom::Events::Taxon::FilterService
   },
 
-  Order: {
-    update: 'Spree::Intercom::Events::Order::StateChangeService',
-    placed: 'Spree::Intercom::Events::Order::PlaceService'
+  order: {
+    update: Spree::Intercom::Events::Order::StateChangeService,
+    placed: Spree::Intercom::Events::Order::PlaceService
   },
 
-  OrderPromotion: {
-    create: 'Spree::Intercom::Events::OrderPromotion::ApplyService',
-    destroy: 'Spree::Intercom::Events::OrderPromotion::RemoveService'
+  order_promotion: {
+    create: Spree::Intercom::Events::OrderPromotion::ApplyService,
+    destroy: Spree::Intercom::Events::OrderPromotion::RemoveService
   },
 
-  Shipment: {
-    update: 'Spree::Intercom::Events::Shipment::ShipService'
+  shipment: {
+    update: Spree::Intercom::Events::Shipment::ShipService
   },
 
-  CustomerReturn: {
-    create: 'Spree::Intercom::Events::CustomerReturn::ReturnService'
+  customer_return: {
+    create: Spree::Intercom::Events::CustomerReturn::ReturnService
   }
 }
