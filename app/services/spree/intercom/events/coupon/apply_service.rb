@@ -1,4 +1,4 @@
-class Spree::Intercom::Events::OrderPromotion::ApplyService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::Coupon::ApplyService < Spree::Intercom::BaseService
 
   EVENT_NAME = 'applied-promotion'
 

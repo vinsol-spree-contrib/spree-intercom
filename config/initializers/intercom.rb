@@ -25,8 +25,11 @@ INTERCOM_SERVICE_MAPPER = {
   },
 
   order_promotion: {
-    create: Spree::Intercom::Events::OrderPromotion::ApplyService,
     destroy: Spree::Intercom::Events::OrderPromotion::RemoveService
+  },
+
+  coupon: {
+    create: Spree::Intercom::Events::Coupon::ApplyService
   },
 
   shipment: {

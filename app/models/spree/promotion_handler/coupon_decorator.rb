@@ -4,7 +4,7 @@ Spree::PromotionHandler::Coupon.class_eval do
     @status_code = c
     @success = Spree.t(c)
 
-    Spree::Intercom::TrackEventsJob.perform_later("OrderPromotion_create", create_data)
+    Spree::Intercom::TrackEventsJob.perform_later("#{self.class.name.demodulize}_create", create_data)
   end
 
   private
