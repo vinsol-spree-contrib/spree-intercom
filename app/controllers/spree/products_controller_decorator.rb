@@ -16,7 +16,9 @@ Spree::ProductsController.class_eval do
 
     def index_data
       {
-        search_keyword: params[:keywords],
+        filter: @searcher.search.to_s,
+        keyword: params[:keywords],
+        taxon_id: params[:taxon],
         time: Time.current.to_i,
         user_id: spree_current_user.id
       }
@@ -24,7 +26,7 @@ Spree::ProductsController.class_eval do
 
     def product_search_conditions_satisfied?
       return true unless action_name == 'index'
-      params[:keywords].present?
+      params[:keywords].present? || @searcher.search.present?
     end
 
 end

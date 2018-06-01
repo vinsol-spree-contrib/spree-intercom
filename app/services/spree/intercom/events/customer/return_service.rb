@@ -1,4 +1,6 @@
-class Spree::Intercom::Events::CustomerReturn::ReturnService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::Customer::ReturnService < Spree::Intercom::BaseService
+
+  EVENT_NAME = 'returned-order'
 
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
@@ -17,7 +19,7 @@ class Spree::Intercom::Events::CustomerReturn::ReturnService < Spree::Intercom::
 
   def event_data
     {
-      event_name: 'returned-order',
+      event_name: EVENT_NAME,
       created_at: @return.created_at,
       user_id: @user.intercom_user_id,
       metadata: {

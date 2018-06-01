@@ -1,8 +1,13 @@
 class Spree::Intercom::Events::Product::SearchService < Spree::Intercom::BaseService
 
+  EVENT_NAME = 'searched-product'
+
   def initialize(options)
+    @taxon = Spree::Taxon.find_by(id: options[:taxon_id])
     @user = Spree::User.find_by(id: options[:user_id])
-    @options = options
+    @time = options[:time]
+    @keyword = options[:keyword]
+    @filter = options[:filter]
     super()
   end
 
@@ -16,11 +21,13 @@ class Spree::Intercom::Events::Product::SearchService < Spree::Intercom::BaseSer
 
   def event_data
     {
-      event_name: 'searched-product',
-      created_at: @options[:time],
+      event_name: EVENT_NAME,
+      created_at: @time,
       user_id: @user.intercom_user_id,
       metadata: {
-        keyword: @options[:search_keyword],
+        keyword: @keyword || 'No keyword present',
+        taxon: @taxon.try(:name) || 'No taxon present',
+        filter: @filter.presence || 'No filter present'
       }
     }
   end

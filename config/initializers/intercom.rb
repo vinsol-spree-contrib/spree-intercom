@@ -5,9 +5,9 @@ INTERCOM_SERVICE_MAPPER = {
   },
 
   line_item: {
-    create: Spree::Intercom::Events::LineItem::AddService,
+    create: Spree::Intercom::Events::LineItem::CreateService,
     update: Spree::Intercom::Events::LineItem::UpdateService,
-    destroy: Spree::Intercom::Events::LineItem::RemoveService
+    destroy: Spree::Intercom::Events::LineItem::DeleteService
   },
 
   user_session: {
@@ -34,6 +34,6 @@ INTERCOM_SERVICE_MAPPER = {
   },
 
   customer_return: {
-    create: Spree::Intercom::Events::CustomerReturn::ReturnService
+    create: Spree::Intercom::Events::Customer::ReturnService
   }
 }

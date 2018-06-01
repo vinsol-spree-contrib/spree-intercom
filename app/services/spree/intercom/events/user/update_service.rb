@@ -1,5 +1,7 @@
 class Spree::Intercom::Events::User::UpdateService < Spree::Intercom::BaseService
 
+  EVENT_NAME = 'updated-account'
+
   def initialize(id)
     @user = Spree::User.find_by(id: id)
     super()
@@ -15,7 +17,7 @@ class Spree::Intercom::Events::User::UpdateService < Spree::Intercom::BaseServic
 
   def event_data
     {
-      event_name: 'updated-account',
+      event_name: EVENT_NAME,
       created_at: @user.updated_at.to_i,
       user_id: @user.intercom_user_id
     }

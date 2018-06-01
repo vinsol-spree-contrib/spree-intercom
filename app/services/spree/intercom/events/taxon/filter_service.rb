@@ -1,8 +1,12 @@
 class Spree::Intercom::Events::Taxon::FilterService < Spree::Intercom::BaseService
 
+  EVENT_NAME = 'filtered-product'
+
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
-    @options = options
+    @time = options[:time]
+    @taxon = options[:taxon]
+    @filter = options[:filter]
     super()
   end
 
@@ -16,12 +20,12 @@ class Spree::Intercom::Events::Taxon::FilterService < Spree::Intercom::BaseServi
 
   def event_data
     {
-      event_name: 'filtered-product',
-      created_at: @options[:time],
+      event_name: EVENT_NAME,
+      created_at: @time,
       user_id: @user.intercom_user_id,
       metadata: {
-        taxon: @options[:taxon],
-        filter: @options[:filter].presence || 'no filter applied'
+        taxon: @taxon,
+        filter: @filter.presence || 'no filter applied'
       }
     }
   end

@@ -2,9 +2,9 @@ Spree::Order.class_eval do
 
   include Spree::EventTracker
 
-  TRACKED_STATES = [:cart, :address, :delivery, :payment, :confirm, :complete]
+  INTERCOM_ORDER_STATES = [:cart, :address, :delivery, :payment, :confirm, :complete]
 
-  state_machine.after_transition to: TRACKED_STATES, do: :create_event_on_intercom, if: :user_present?
+  state_machine.after_transition to: INTERCOM_ORDER_STATES, do: :create_event_on_intercom, if: :user_present?
 
   private
 

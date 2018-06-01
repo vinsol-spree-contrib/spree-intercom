@@ -15,7 +15,7 @@ Spree::LineItem.class_eval do
     end
 
     def update_conditions_satisfied?
-      resource_updated? ? quantity_updated_to_non_zero_value? : true
+      (resource_created? || resource_destroyed?) ? true : quantity_updated_to_non_zero_value?
     end
 
     def quantity_updated_to_non_zero_value?

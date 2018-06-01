@@ -1,9 +1,12 @@
 class Spree::Intercom::Events::LineItem::UpdateService < Spree::Intercom::BaseService
 
+  EVENT_NAME = 'changed-product-quantity'
+
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
     @line_item = Spree::LineItem.find_by(id: options[:line_item_id])
-    @options = options
+    @order_number = options[:order_number]
+    @sku = options[:sku]
     super()
   end
 
@@ -17,13 +20,13 @@ class Spree::Intercom::Events::LineItem::UpdateService < Spree::Intercom::BaseSe
 
   def event_data
     {
-      event_name: 'changed-product-quantity',
+      event_name: EVENT_NAME,
       created_at: @line_item.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @options[:order_number],
+        order_number: @order_number,
         product: @line_item.name,
-        sku: @options[:sku],
+        sku: @sku,
         quantity: @line_item.quantity
       }
     }

@@ -1,12 +1,12 @@
-class Spree::Intercom::Events::OrderPromotion::RemoveService < Spree::Intercom::BaseService
+class Spree::Intercom::Events::LineItem::DeleteService < Spree::Intercom::BaseService
 
-  EVENT_NAME = 'removed-promotion'
+  EVENT_NAME = 'removed-product'
 
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
-    @order = Spree::Order.find_by(id: options[:order_id])
-    @promotion = Spree::Promotion.find_by(id: options[:promotion_id])
     @time = options[:time]
+    @order_number = options[:order_number]
+    @sku = options[:sku]
     super()
   end
 
@@ -24,8 +24,9 @@ class Spree::Intercom::Events::OrderPromotion::RemoveService < Spree::Intercom::
       created_at: @time,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @order.number,
-        code: @promotion.code
+        order_number: @order_number,
+        product: @name,
+        sku: @sku
       }
     }
   end

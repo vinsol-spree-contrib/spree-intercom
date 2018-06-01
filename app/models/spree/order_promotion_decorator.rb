@@ -2,7 +2,7 @@ Spree::OrderPromotion.class_eval do
 
   include Spree::EventTracker
 
-  after_commit :create_event_on_intercom, on: [:create, :destroy], if: :user_present?
+  after_commit :create_event_on_intercom, on: :destroy, if: :user_present?
 
   private
 
