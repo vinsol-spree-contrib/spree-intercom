@@ -7,6 +7,7 @@ class Spree::Intercom::Events::LineItem::DeleteService < Spree::Intercom::BaseSe
     @time = options[:time]
     @order_number = options[:order_number]
     @sku = options[:sku]
+    @name = options[:name]
     super()
   end
 

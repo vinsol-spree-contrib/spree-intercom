@@ -45,7 +45,7 @@ RSpec.describe Spree::Intercom::UpdateUserService, type: :service do
       allow(user_service).to receive(:send_request).and_return(true)
     end
 
-    it 'is expected to call update' do
+    it 'is expected to call send_request' do
       expect(user_service).to receive(:send_request).and_return(true)
     end
 
