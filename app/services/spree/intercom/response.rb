@@ -1,7 +1,8 @@
 class Spree::Intercom::Response
 
+  # data maybe be nil in case of successful event request
   def initialize(data)
-    @response = data.to_hash
+    @response = data.try(:to_hash)
   end
 
   def success?
@@ -9,6 +10,7 @@ class Spree::Intercom::Response
   end
 
   def failure?
+    return false if @response.nil?
     @response['http_code'].present? && @response['http_code'] >= 400  && @response['http_code'] <= 504
   end
 
