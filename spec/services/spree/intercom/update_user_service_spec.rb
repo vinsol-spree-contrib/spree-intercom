@@ -48,6 +48,8 @@ RSpec.describe Spree::Intercom::UpdateUserService, type: :service do
       allow(user_service).to receive(:send_request).and_return(true)
       user_service.instance_variable_set(:@response, response)
       allow(response).to receive(:success?).and_return(true)
+      allow(Spree::Intercom::Events::User::UpdateService).to receive(:new).with(user.id).and_return(event_service)
+      allow(event_service).to receive(:register).and_return(true)
     end
 
     it 'is expected to call send_request' do
@@ -55,16 +57,12 @@ RSpec.describe Spree::Intercom::UpdateUserService, type: :service do
     end
 
     context 'response is success' do
-      before do
-        allow(Spree::Intercom::Events::User::UpdateService).to receive(:new).with(user.id).and_return(event_service)
-      end
-
       it 'is expected to call service' do
         expect(Spree::Intercom::Events::User::UpdateService).to receive(:new).with(user.id).and_return(event_service)
       end
 
       it 'is expected to call register' do
-        expect(event_service).to receive(:register)
+        expect(event_service).to receive(:register).and_return(true)
       end
     end
 
