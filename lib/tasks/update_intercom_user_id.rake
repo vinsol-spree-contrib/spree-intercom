@@ -6,10 +6,10 @@ namespace :intercom do
     log.info "Task started at #{Time.now}"
 
     Spree::User.where(intercom_user_id: nil).find_each do |user|
-      if user.regenerate_intercom_user_id
-        log.info "User ##{user.id} updated"
+      if user.regenerate_intercom_user_id && Spree::Intercom::CreateUserService.new(user.id).create
+        log.info "User ##{user.id} updated and record created on Intercom"
       else
-        log.info "User ##{user.id} could not be updated"
+        log.info "User ##{user.id} not updated and record not created on Intercom"
       end
     end
 
