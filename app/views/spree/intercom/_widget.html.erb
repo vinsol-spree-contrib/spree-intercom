@@ -1,4 +1,4 @@
-<% if Spree::Config.intercom_application_id.present? %>
+<% if Spree::Config.intercom_application_id.present? && Spree::Config.enable_intercom %>
   <%= hidden_field_tag :intercom_application_id, {}, { data: { hook: 'intercom_application_id', value: Spree::Config.intercom_application_id } } %>
 
   <% if spree_current_user.present? %>

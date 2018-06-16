@@ -2,9 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Spree::Intercom::CreateUserService, type: :service do
 
-  Spree::Config.intercom_access_token = ''
-  Spree::Config.intercom_application_id = ''
-
   let!(:user) { create(:user) }
   let!(:user_data) { Spree::Intercom::UserSerializer.new(user).serializable_hash }
   let!(:user_service) { Spree::Intercom::CreateUserService.new(user.id) }

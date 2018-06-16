@@ -2,9 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Spree::Intercom::Response, type: :service do
 
-  Spree::Config.intercom_access_token = ''
-  Spree::Config.intercom_application_id = ''
-
   let!(:data) { Intercom::User.new(email: "use30@mail.com", phone: "3212311234", name: "name", pseudonym: nil) }
   let!(:response) { Spree::Intercom::Response.new(data) }
 

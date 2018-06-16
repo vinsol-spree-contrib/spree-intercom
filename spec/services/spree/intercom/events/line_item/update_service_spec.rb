@@ -2,9 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Spree::Intercom::Events::LineItem::UpdateService, type: :service do
 
-  Spree::Config.intercom_access_token = ''
-  Spree::Config.intercom_application_id = ''
-
   let!(:line_item) { create(:line_item) }
   let!(:order) { line_item.order }
   let!(:user) { line_item.order.user }

@@ -62,10 +62,6 @@ RSpec.describe Spree::Intercom::BaseService, type: :service do
     end
 
     context 'when intercom processes request with exception' do
-      let!(:intercom_data) {
-        { http_code: 404, application_error_code: "not_found", field: nil, request_id: "b3ipdb2k8f6shhfgdnng" }
-      }
-
       before do
         allow(base_service).to receive(:perform).and_return(Intercom::ResourceNotFound)
         allow(base_service).to receive(:create_response_object).and_return(true)

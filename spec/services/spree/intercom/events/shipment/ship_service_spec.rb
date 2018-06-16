@@ -2,9 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Spree::Intercom::Events::Shipment::ShipService, type: :service do
 
-  Spree::Config.intercom_access_token = ''
-  Spree::Config.intercom_application_id = ''
-
   let!(:user) { create(:user) }
   let!(:order) { create(:order, user_id: user.id) }
   let!(:shipment) { create(:shipment, state: 'ready', order: order) }
