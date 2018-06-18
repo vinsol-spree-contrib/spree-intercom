@@ -1,11 +1,9 @@
 class Spree::Intercom::TrackEventsJob < ApplicationJob
 
   def perform(name, options = {})
-    if Spree::Config.enable_intercom
-      resource, action = name.split('_')
-      service_name = INTERCOM_SERVICE_MAPPER[resource.underscore.to_sym][action.to_sym]
+    resource, action = name.split('_')
+    service_name = INTERCOM_SERVICE_MAPPER[resource.underscore.to_sym][action.to_sym]
 
-      service_name.new(options).register
-    end
+    service_name.new(options).register
   end
 end

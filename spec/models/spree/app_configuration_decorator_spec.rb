@@ -10,7 +10,7 @@ describe Spree::AppConfiguration, type: :model do
 
   it { expect(Spree::Config).to have_preference(:enable_intercom) }
   it { expect(Spree::Config.enable_intercom_type).to eq(:boolean) }
-  it { expect(Spree::Config.enable_intercom_default).to eq(true) }
+  it { expect(Spree::Config.enable_intercom_default).to eq(false) }
 
   it 'is expected not to raise an exception when accessing intercom_application_id' do
     expect { Spree::Config.intercom_application_id }.not_to raise_error

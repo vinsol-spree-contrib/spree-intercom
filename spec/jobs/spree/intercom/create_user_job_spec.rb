@@ -17,43 +17,24 @@ RSpec.describe Spree::Intercom::CreateUserJob, type: :job do
   end
 
   describe 'perform' do
-    context 'when intercom is enabled' do
-      before do
-        Spree::Config.enable_intercom = true
-        allow(Spree::Intercom::CreateUserService).to receive(:new).with(user.id).and_return(user_service)
-        allow(user_service).to receive(:create).and_return(true)
-      end
-
-      it 'is expected to execute perform' do
-        expect(Spree::Intercom::CreateUserService).to receive(:new).with(user.id).and_return(user_service)
-        perform_enqueued_jobs { job }
-      end
-
-      it 'is expected to call create' do
-        expect(user_service).to receive(:create).and_return(true)
-        perform_enqueued_jobs { job }
-      end
-
-      after do
-        clear_enqueued_jobs
-        clear_performed_jobs
-      end
+    before do
+      allow(Spree::Intercom::CreateUserService).to receive(:new).with(user.id).and_return(user_service)
+      allow(user_service).to receive(:create).and_return(true)
     end
 
-    context 'when intercom is disabled' do
-      before do
-        Spree::Config.enable_intercom = false
-      end
+    it 'is expected to execute perform' do
+      expect(Spree::Intercom::CreateUserService).to receive(:new).with(user.id).and_return(user_service)
+      perform_enqueued_jobs { job }
+    end
 
-      it 'is not expected to execute perform' do
-        expect(Spree::Intercom::CreateUserService).not_to receive(:new)
-        perform_enqueued_jobs { job }
-      end
+    it 'is expected to call create' do
+      expect(user_service).to receive(:create).and_return(true)
+      perform_enqueued_jobs { job }
+    end
 
-      after do
-        clear_enqueued_jobs
-        clear_performed_jobs
-      end
+    after do
+      clear_enqueued_jobs
+      clear_performed_jobs
     end
   end
 

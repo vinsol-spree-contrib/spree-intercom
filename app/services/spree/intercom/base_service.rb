@@ -9,6 +9,8 @@ class Spree::Intercom::BaseService
   end
 
   def send_request
+    return unless Spree::Config.enable_intercom
+    
     begin
       intercom_data = perform
     rescue Intercom::AuthenticationError, Intercom::ServerError, Intercom::ServiceUnavailableError, Intercom::ServiceConnectionError,

@@ -45,34 +45,55 @@ RSpec.describe Spree::Intercom::BaseService, type: :service do
   end
 
   describe '#send_request' do
-    context 'when intercom processes request without exception' do
-      let!(:intercom_data) {
-        { type: "location_data", city_name: "Delhi", continent_code: "AS", country_name: "India", latitude: 28.6667, longitude: 77.2167, postal_code: "110008", region_name: "Delhi" }
-      }
+    context 'when intercom is enabled' do
+      
+      before { Spree::Config.enable_intercom = true }
 
-      before do
-        allow(base_service).to receive(:perform).and_return(intercom_data)
-        allow(base_service).to receive(:create_response_object).and_return(true)
+      context 'when intercom processes request without exception' do
+        let!(:intercom_data) {
+          { type: "location_data", city_name: "Delhi", continent_code: "AS", country_name: "India", latitude: 28.6667, longitude: 77.2167, postal_code: "110008", region_name: "Delhi" }
+        }
+
+        before do
+          allow(base_service).to receive(:perform).and_return(intercom_data)
+          allow(base_service).to receive(:create_response_object).and_return(true)
+        end
+
+        it 'is expected to call create_response_object' do
+          expect(base_service).to receive(:create_response_object)
+          base_service.send_request
+        end
       end
 
-      it 'is expected to call create_response_object' do
-        expect(base_service).to receive(:create_response_object)
-        base_service.send_request
+      context 'when intercom processes request with exception' do
+        before do
+          allow(base_service).to receive(:perform).and_return(Intercom::ResourceNotFound)
+          allow(base_service).to receive(:create_response_object).and_return(true)
+        end
+
+        it 'is expected to rescue error' do
+          expect { base_service.send_request }.not_to raise_error
+        end
+
+        it 'is expected to call create_response_object' do
+          expect(base_service).to receive(:create_response_object)
+          base_service.send_request
+        end
+
       end
     end
 
-    context 'when intercom processes request with exception' do
+    context 'when intercom is disabled' do
       before do
-        allow(base_service).to receive(:perform).and_return(Intercom::ResourceNotFound)
-        allow(base_service).to receive(:create_response_object).and_return(true)
+        Spree::Config.enable_intercom = false
       end
 
-      it 'is expected to rescue error' do
-        expect { base_service.send_request }.not_to raise_error
+      it 'is expected to return back' do
+        expect(base_service.send_request).to eq(nil)
       end
 
-      it 'is expected to call create_response_object' do
-        expect(base_service).to receive(:create_response_object)
+      it 'is not expected to call perform' do
+        expect(base_service).not_to receive(:perform)
         base_service.send_request
       end
 
