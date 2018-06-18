@@ -2,9 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Spree::Intercom::BaseService, type: :service do
 
-  Spree::Config.intercom_access_token = ''
-  Spree::Config.intercom_application_id = ''
-
   let!(:base_service) { Spree::Intercom::BaseService.new }
   let!(:intercom) { Intercom::Client.new(token: Spree::Config.intercom_access_token) }
 
@@ -46,7 +43,7 @@ RSpec.describe Spree::Intercom::BaseService, type: :service do
 
   describe '#send_request' do
     context 'when intercom is enabled' do
-      
+
       before { Spree::Config.enable_intercom = true }
 
       context 'when intercom processes request without exception' do
