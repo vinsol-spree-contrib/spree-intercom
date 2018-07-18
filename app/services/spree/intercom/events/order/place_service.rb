@@ -22,7 +22,10 @@ class Spree::Intercom::Events::Order::PlaceService < Spree::Intercom::BaseServic
       created_at: @order.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @order.number,
+        order_number: {
+          url: order_url,
+          value: @order.number
+        },
         price: {
           amount: @order.amount,
           currency: @order.currency
@@ -30,5 +33,19 @@ class Spree::Intercom::Events::Order::PlaceService < Spree::Intercom::BaseServic
       }
     }
   end
+
+  private
+
+    def order_url
+      Spree::Core::Engine.routes.url_helpers.order_url(@order, host: host_name, protocol: protocol_name)
+    end
+
+    def host_name
+      Rails.application.routes.default_url_options[:host].presence || "localhost:3000"
+    end
+
+    def protocol_name
+      Rails.application.routes.default_url_options[:protocol].presence || "http"
+    end
 
 end

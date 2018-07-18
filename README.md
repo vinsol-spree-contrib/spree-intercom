@@ -40,7 +40,7 @@ We currently support Rails 5 and Spree > 3.1
 
 5. Go to Admin Panel -> Configurations -> Intercom, and enter your Intercom application's id and access token.
 
-   ![image](https://user-images.githubusercontent.com/8337530/40781633-42371f8c-64fa-11e8-8b8e-7575eb091419.png)
+   ![image](https://user-images.githubusercontent.com/8337530/42864885-972709d4-8a85-11e8-85da-a657ecad0081.png)
 
    To get your application id, you can have a look [here](https://docs.intercom.com/faqs-and-troubleshooting/getting-set-up/where-can-i-find-my-app-id)
 
@@ -52,6 +52,13 @@ We currently support Rails 5 and Spree > 3.1
 
   ```ruby
   bundle exec rake intercom:process_users
+  ```
+
+7. You need to specify the default url options in the specific environment files.  
+   For example, you need to add this in production.rb
+
+  ```ruby
+  Rails.application.routes.default_url_options = { host: "mydomain.com", protocol: 'https' }
   ```
 
 ## Usage
@@ -87,6 +94,8 @@ We currently support Rails 5 and Spree > 3.1
     * Customer returns an order.
     * Customer applies promotion.
     * Customer removes promotion.
+
+5. You can enable and disable the intercom functionality at the admin end.
 
 ## Testing
 
