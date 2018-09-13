@@ -7,3 +7,4 @@ en:
     intercom_access_token: Access Token
     intercom_application_id: Application Id
     intercom_settings: Intercom Settings
+    enable_intercom: Enable Intercom

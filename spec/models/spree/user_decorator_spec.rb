@@ -22,6 +22,15 @@ RSpec.describe Spree::User, type: :model do
     it { is_expected.to validate_uniqueness_of(:intercom_user_id).case_insensitive }
   end
 
+  describe '#completed_orders_count' do
+    let!(:user_with_completed_orders) { FactoryBot.create(:user) }
+    let!(:order) { create(:completed_order_with_totals, user: user_with_completed_orders) }
+
+    it 'is expected to return count of completed orders' do
+      expect(user_with_completed_orders.completed_orders_count).to eq(1)
+    end
+  end
+
   describe '#create_user_on_intercom' do
     before { ActiveJob::Base.queue_adapter = :test }
 

@@ -2,8 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Spree::Intercom::CreateUserJob, type: :job do
   include ActiveJob::TestHelper
-  Spree::Config.intercom_access_token = ''
-  Spree::Config.intercom_application_id = ''
 
   let!(:user) { create(:user) }
   let!(:user_service) { Spree::Intercom::CreateUserService.new(user.id) }

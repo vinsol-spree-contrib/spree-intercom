@@ -16,7 +16,7 @@ class Spree::Intercom::CreateUserService < Spree::Intercom::BaseService
   def create
     send_request
 
-    if @response.success?
+    if @response.try(:success?)
       Spree::Intercom::Events::User::CreateService.new(@user.id).register
     end
   end

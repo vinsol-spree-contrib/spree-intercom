@@ -2,8 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Spree::Intercom::UpdateUserJob, type: :job do
   include ActiveJob::TestHelper
-  Spree::Config.intercom_access_token = ''
-  Spree::Config.intercom_application_id = ''
 
   let!(:user) { create(:user) }
   let!(:user_service) { Spree::Intercom::UpdateUserService.new(user.id) }
@@ -39,5 +37,5 @@ RSpec.describe Spree::Intercom::UpdateUserJob, type: :job do
       clear_performed_jobs
     end
   end
-
+  
 end

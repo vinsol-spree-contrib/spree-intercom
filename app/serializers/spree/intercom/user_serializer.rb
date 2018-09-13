@@ -4,6 +4,7 @@ class Spree::Intercom::UserSerializer < ActiveModel::Serializer
   attribute :last_sign_in_ip, key: :last_seen_ip
   attribute :created_at, key: :signed_up_at
   attribute :intercom_user_id, key: :user_id
+  attribute :completed_orders_count, key: :number_of_orders
 
   def address_present?
     object.bill_address.present?

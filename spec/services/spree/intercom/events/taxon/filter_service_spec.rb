@@ -2,9 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Spree::Intercom::Events::Taxon::FilterService, type: :service do
 
-  Spree::Config.intercom_access_token = ''
-  Spree::Config.intercom_application_id = ''
-
   let!(:user) { create(:user) }
 
   let!(:options) {

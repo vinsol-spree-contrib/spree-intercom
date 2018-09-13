@@ -22,6 +22,16 @@
             </div>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <div class="form-group" data-hook="admin_enable_intercom">
+              <%= label_tag :enable_intercom, Spree.t(:enable_intercom) %>
+              <%= hidden_field_tag :enable_intercom, false %>
+              <%= check_box_tag :enable_intercom, true, Spree::Config.enable_intercom %>
+            </div>
+          </div>
+        </div>
     </fieldset>
   </div>
 

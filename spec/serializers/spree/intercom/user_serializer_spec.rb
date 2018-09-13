@@ -78,4 +78,10 @@ RSpec.describe Spree::Intercom::UserSerializer, type: :serializer do
       end
     end
   end
+
+  describe 'number_of_orders' do
+    it 'is expected to have a number_of_orders' do
+      expect(serialized_data_user[:number_of_orders]).to eq(user.completed_orders_count)
+    end
+  end
 end

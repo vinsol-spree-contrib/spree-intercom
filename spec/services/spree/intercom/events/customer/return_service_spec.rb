@@ -2,9 +2,6 @@ require 'spec_helper'
 
 RSpec.describe Spree::Intercom::Events::Customer::ReturnService, type: :service do
 
-  Spree::Config.intercom_access_token = ''
-  Spree::Config.intercom_application_id = ''
-
   let!(:customer_return) { create(:customer_return) }
   let!(:order) { customer_return.order }
   let!(:user) { order.user }

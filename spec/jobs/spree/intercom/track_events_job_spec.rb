@@ -43,5 +43,5 @@ RSpec.describe Spree::Intercom::TrackEventsJob, type: :job do
       clear_performed_jobs
     end
   end
-
+  
 end
