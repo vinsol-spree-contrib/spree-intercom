@@ -7,6 +7,10 @@ Spree::User.class_eval do
   after_commit :create_user_on_intercom, on: :create
   after_commit :update_user_on_intercom, on: :update, if: :user_intercom_attributes_changed?
 
+  def completed_orders_count
+    orders.complete.count
+  end
+
   private
 
     def create_user_on_intercom

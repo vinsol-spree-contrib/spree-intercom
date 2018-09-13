@@ -23,7 +23,7 @@ RSpec.describe Spree::Intercom::Events::Order::PlaceService, type: :service do
           value: order.number
         },
         price: {
-          amount: order.amount,
+          amount: order.total.to_f * 100,
           currency: order.currency
         }
       }

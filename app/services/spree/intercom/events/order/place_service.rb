@@ -27,7 +27,7 @@ class Spree::Intercom::Events::Order::PlaceService < Spree::Intercom::BaseServic
           value: @order.number
         },
         price: {
-          amount: @order.amount,
+          amount: (@order.total.to_f * 100), # decimal amount in cents
           currency: @order.currency
         }
       }

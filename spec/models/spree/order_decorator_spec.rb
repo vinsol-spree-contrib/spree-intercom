@@ -49,6 +49,20 @@ RSpec.describe Spree::Order, type: :model do
           order.next
         end
       end
+
+      context 'when state is changed to complete' do
+        let!(:order) { create(:order, state: 'confirm') }
+
+        it 'is expected to run create_event_on_intercom' do
+          expect(order).to receive(:create_event_on_intercom)
+          order.next
+        end
+
+        it 'is expected to run update_user_on_intercom' do
+          expect(order).to receive(:update_user_on_intercom)
+          order.next
+        end
+      end
     end
 
     context 'when user is not present' do
@@ -57,6 +71,16 @@ RSpec.describe Spree::Order, type: :model do
         order_without_user.line_items << line_item
         order_without_user.next
       end
+    end
+  end
+
+  describe '#update_user_on_intercom' do
+    before { ActiveJob::Base.queue_adapter = :test }
+
+    it 'is expected to enqueue UpdateUserJob' do
+      expect {
+        order.send :update_user_on_intercom
+      }.to change { ActiveJob::Base.queue_adapter.enqueued_jobs.count }.by(1)
     end
   end
 
