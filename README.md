@@ -113,6 +113,11 @@ Simply add this require statement to your spec_helper:
 require 'spree_intercom/factories'
 ```
 
+## See It In Action
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=0Ufz8SxGcJI
+" target="_blank"><img src="http://img.youtube.com/vi/0Ufz8SxGcJI/0.jpg" 
+alt="Youtube Video Tutorial" /></a>
 
 ## Contributing
 
