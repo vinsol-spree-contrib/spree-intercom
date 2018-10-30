@@ -4,6 +4,7 @@ RSpec.describe Spree::Intercom::Events::Order::StateChangeService, type: :servic
 
   let!(:user) { create(:user) }
   let!(:order) { create(:order, user_id: user.id) }
+  let!(:order_url) { Spree::Core::Engine.routes.url_helpers.order_url(order, host: 'localhost:3000', protocol: 'http') }
 
   let!(:options) {
     {
@@ -18,7 +19,10 @@ RSpec.describe Spree::Intercom::Events::Order::StateChangeService, type: :servic
       created_at: order.updated_at,
       user_id: user.intercom_user_id,
       metadata: {
-        order_number: order.number,
+        order_number: {
+          url: order_url,
+          value: order.number
+        },
         state: order.state
       }
     }
@@ -73,4 +77,5 @@ RSpec.describe Spree::Intercom::Events::Order::StateChangeService, type: :servic
     end
   end
 
+  it_behaves_like 'order_url'
 end

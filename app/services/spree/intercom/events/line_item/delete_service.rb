@@ -5,7 +5,7 @@ class Spree::Intercom::Events::LineItem::DeleteService < Spree::Intercom::BaseSe
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
     @time = options[:time]
-    @order_number = options[:order_number]
+    @order = Spree::Order.find_by(number: options[:order_number])
     @sku = options[:sku]
     @name = options[:name]
     super()
@@ -25,7 +25,10 @@ class Spree::Intercom::Events::LineItem::DeleteService < Spree::Intercom::BaseSe
       created_at: @time,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @order_number,
+        order_number: {
+          url: order_url,
+          value: @order.number
+        },
         product: @name,
         sku: @sku
       }

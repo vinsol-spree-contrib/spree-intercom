@@ -6,6 +6,7 @@ RSpec.describe Spree::Intercom::Events::LineItem::UpdateService, type: :service 
   let!(:order) { line_item.order }
   let!(:user) { line_item.order.user }
   let!(:variant) { line_item.variant }
+  let!(:order_url) { Spree::Core::Engine.routes.url_helpers.order_url(order, host: 'localhost:3000', protocol: 'http') }
 
   let!(:options) {
     {
@@ -22,7 +23,10 @@ RSpec.describe Spree::Intercom::Events::LineItem::UpdateService, type: :service 
       created_at: line_item.updated_at,
       user_id: user.intercom_user_id,
       metadata: {
-        order_number: order.number,
+        order_number: {
+          url: order_url,
+          value: order.number
+        },
         product: line_item.name,
         sku: variant.sku,
         quantity: line_item.quantity
@@ -46,8 +50,8 @@ RSpec.describe Spree::Intercom::Events::LineItem::UpdateService, type: :service 
       expect(event_service.instance_variable_get(:@line_item)).to eq(line_item)
     end
 
-    it 'is expected to set @order_number' do
-      expect(event_service.instance_variable_get(:@order_number)).to eq(options[:order_number])
+    it 'is expected to set @order' do
+      expect(event_service.instance_variable_get(:@order)).to eq(order)
     end
 
     it 'is expected to set @sku' do
@@ -87,4 +91,5 @@ RSpec.describe Spree::Intercom::Events::LineItem::UpdateService, type: :service 
     end
   end
 
+  it_behaves_like 'order_url'
 end

@@ -5,7 +5,7 @@ class Spree::Intercom::Events::LineItem::UpdateService < Spree::Intercom::BaseSe
   def initialize(options)
     @user = Spree::User.find_by(id: options[:user_id])
     @line_item = Spree::LineItem.find_by(id: options[:line_item_id])
-    @order_number = options[:order_number]
+    @order = Spree::Order.find_by(number: options[:order_number])
     @sku = options[:sku]
     super()
   end
@@ -24,7 +24,10 @@ class Spree::Intercom::Events::LineItem::UpdateService < Spree::Intercom::BaseSe
       created_at: @line_item.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @order_number,
+        order_number: {
+          url: order_url,
+          value: @order.number
+        },
         product: @line_item.name,
         sku: @sku,
         quantity: @line_item.quantity

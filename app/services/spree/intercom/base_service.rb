@@ -10,7 +10,7 @@ class Spree::Intercom::BaseService
 
   def send_request
     return unless Spree::Config.enable_intercom
-    
+
     begin
       intercom_data = perform
     rescue Intercom::AuthenticationError, Intercom::ServerError, Intercom::ServiceUnavailableError, Intercom::ServiceConnectionError,
@@ -29,5 +29,19 @@ class Spree::Intercom::BaseService
   def perform
     raise NotImplementedError
   end
+
+  private
+
+    def host_name
+      Rails.application.routes.default_url_options[:host].presence || "localhost:3000"
+    end
+
+    def protocol_name
+      Rails.application.routes.default_url_options[:protocol].presence || "http"
+    end
+
+    def order_url
+      Spree::Core::Engine.routes.url_helpers.order_url(@order, host: host_name, protocol: protocol_name)
+    end
 
 end

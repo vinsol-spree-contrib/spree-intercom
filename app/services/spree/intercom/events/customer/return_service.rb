@@ -23,7 +23,10 @@ class Spree::Intercom::Events::Customer::ReturnService < Spree::Intercom::BaseSe
       created_at: @return.created_at,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @order.number,
+        order_number: {
+          url: order_url,
+          value: @order.number
+        },
         return_number: @return.number
       }
     }
