@@ -2,7 +2,6 @@ function SpreeIntercom(options) {
   this.$intercomApplicationId = options.$intercomApplicationId;
   this.$currentUserEmail = options.$currentUserEmail;
   this.$currentUserId = options.$currentUserId;
-  this.$numberOfOrders = options.$numberOfOrders;
 }
 
 SpreeIntercom.prototype.initialize = function() {
@@ -18,7 +17,6 @@ SpreeIntercom.prototype.setIntercomSettings = function () {
       app_id: _this.$intercomApplicationId.data('value'),
       email: _this.$currentUserEmail.data('value'),
       user_id: _this.$currentUserId.data('value'),
-      number_of_orders: _this.$numberOfOrders.data('value')
     };
   } else {
     window.intercomSettings = {

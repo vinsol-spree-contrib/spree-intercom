@@ -22,7 +22,10 @@ class Spree::Intercom::Events::Order::StateChangeService < Spree::Intercom::Base
       created_at: @order.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @order.number,
+        order_number: {
+          url: order_url,
+          value: @order.number
+        },
         state: @order.state
       }
     }

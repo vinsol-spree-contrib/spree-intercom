@@ -1,10 +1,8 @@
 class Spree::Intercom::UserSerializer < ActiveModel::Serializer
-
-  attributes :email, :name, :phone
-  attribute :last_sign_in_ip, key: :last_seen_ip
+  attributes :email, :name, :phone, :custom_attributes
+  attribute :last_sign_in_ip, key: :last_seen_ip, if: :ip_address_present?
   attribute :created_at, key: :signed_up_at
   attribute :intercom_user_id, key: :user_id
-  attribute :completed_orders_count, key: :number_of_orders
 
   def address_present?
     object.bill_address.present?
@@ -22,4 +20,13 @@ class Spree::Intercom::UserSerializer < ActiveModel::Serializer
     end
   end
 
+  def ip_address_present?
+    object.last_sign_in_ip.present?
+  end
+
+  def custom_attributes
+    {
+      number_of_orders: object.completed_orders_count
+    }
+  end
 end

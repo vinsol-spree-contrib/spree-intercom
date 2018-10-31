@@ -25,7 +25,7 @@ RSpec.describe Spree::Intercom::UpdateUserService, type: :service do
       allow(user).to receive(:last_seen_ip=).and_return(user)
       allow(user).to receive(:signed_up_at=).and_return(user)
       allow(user).to receive(:user_id=).and_return(user)
-      allow(user).to receive(:number_of_orders=).and_return(user)
+      allow(user).to receive(:custom_attributes=).and_return(user)
       allow_any_instance_of(Intercom::Client).to receive_message_chain(:users, :save).with(user) { 'response' }
     end
 

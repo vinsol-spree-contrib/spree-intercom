@@ -44,8 +44,16 @@ RSpec.describe Spree::Intercom::UserSerializer, type: :serializer do
   end
 
   describe 'last_seen_ip' do
-    it 'is expected to have a last_seen_ip' do
-      expect(serialized_data_user[:last_seen_ip]).to eq(user.last_sign_in_ip)
+    context 'when ip_address_present? returns true' do
+      it 'is expected to have a last_seen_ip' do
+        expect(serialized_data_user[:last_seen_ip]).to eq(user.last_sign_in_ip)
+      end
+    end
+
+    context 'when ip_address_present? returns false' do
+      it 'is expected not to have a last_seen_ip' do
+        expect(serialized_data_user.has_key?(:last_seen_ip)).to eq(false)
+      end
     end
   end
 
@@ -79,9 +87,11 @@ RSpec.describe Spree::Intercom::UserSerializer, type: :serializer do
     end
   end
 
-  describe 'number_of_orders' do
-    it 'is expected to have a number_of_orders' do
-      expect(serialized_data_user[:number_of_orders]).to eq(user.completed_orders_count)
+  describe 'custom_attributes' do
+    context 'number_of_orders' do
+      it 'is expected to have a number_of_orders' do
+        expect(serialized_data_user[:custom_attributes]).to eq({ number_of_orders: user.completed_orders_count })
+      end
     end
   end
 end

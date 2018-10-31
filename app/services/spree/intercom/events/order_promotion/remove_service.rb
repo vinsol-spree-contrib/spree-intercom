@@ -24,7 +24,10 @@ class Spree::Intercom::Events::OrderPromotion::RemoveService < Spree::Intercom::
       created_at: @time,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @order.number,
+        order_number: {
+          url: order_url,
+          value: @order.number
+        },
         code: @promotion.code
       }
     }

@@ -4,7 +4,6 @@
   <% if spree_current_user.present? %>
     <%= hidden_field_tag :current_user_email, {}, { data: { hook: 'current_user_email', value: spree_current_user.email } } %>
     <%= hidden_field_tag :current_user_id, {}, { data: { hook: 'current_user_id', value: spree_current_user.intercom_user_id } } %>
-    <%= hidden_field_tag :completed_orders_count, {}, { data: { hook: 'completed_orders_count', value: spree_current_user.completed_orders_count } } %>
   <% end %>
 
 <% end %>

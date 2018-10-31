@@ -5,6 +5,7 @@ RSpec.describe Spree::Intercom::Events::OrderPromotion::RemoveService, type: :se
   let!(:user) { create(:user) }
   let!(:order) { create(:order, user_id: user.id) }
   let!(:promotion) { create(:promotion) }
+  let!(:order_url) { Spree::Core::Engine.routes.url_helpers.order_url(order, host: 'localhost:3000', protocol: 'http') }
 
   let!(:options) {
     {
@@ -21,7 +22,10 @@ RSpec.describe Spree::Intercom::Events::OrderPromotion::RemoveService, type: :se
       created_at: options[:time],
       user_id: user.intercom_user_id,
       metadata: {
-        order_number: order.number,
+        order_number: {
+          url: order_url,
+          value: order.number
+        },
         code: promotion.code
       }
     }
@@ -84,4 +88,5 @@ RSpec.describe Spree::Intercom::Events::OrderPromotion::RemoveService, type: :se
     end
   end
 
+  it_behaves_like 'order_url'
 end

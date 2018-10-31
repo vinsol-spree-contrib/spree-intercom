@@ -23,7 +23,10 @@ class Spree::Intercom::Events::Shipment::ShipService < Spree::Intercom::BaseServ
       created_at: @shipment.updated_at,
       user_id: @user.intercom_user_id,
       metadata: {
-        order_number: @order.number,
+        order_number: {
+          url: order_url,
+          value: @order.number
+        },
         shipment_number: @shipment.number
       }
     }

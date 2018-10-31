@@ -5,6 +5,7 @@ RSpec.describe Spree::Intercom::Events::Customer::ReturnService, type: :service 
   let!(:customer_return) { create(:customer_return) }
   let!(:order) { customer_return.order }
   let!(:user) { order.user }
+  let!(:order_url) { Spree::Core::Engine.routes.url_helpers.order_url(order, host: 'localhost:3000', protocol: 'http') }
 
   let!(:options) {
     {
@@ -20,7 +21,10 @@ RSpec.describe Spree::Intercom::Events::Customer::ReturnService, type: :service 
       created_at: customer_return.created_at,
       user_id: user.intercom_user_id,
       metadata: {
-        order_number: order.number,
+        order_number: {
+          url: order_url,
+          value: order.number
+        },
         return_number: customer_return.number
       }
     }
@@ -78,5 +82,7 @@ RSpec.describe Spree::Intercom::Events::Customer::ReturnService, type: :service 
       expect(event_service.event_data).to eq(event_data)
     end
   end
+
+  it_behaves_like 'order_url'
 
 end
